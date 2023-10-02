@@ -1,25 +1,24 @@
 <?php
 
-namespace NFePHP\NFSeTinus\Common;
+namespace HDViegas\NFSeTinus\Common;
 
 /**
  * Auxiar Tools Class for comunications with NFSe webserver in Tinus Standard
  *
  * @category  NFePHP
- * @package   NFePHP\NFSeTinus
+ * @package   HDViegas\NFSeTinus
  * @copyright NFePHP Copyright (c) 2008-2020
  * @license   http://www.gnu.org/licenses/lgpl.txt LGPLv3+
  * @license   https://opensource.org/licenses/MIT MIT
  * @license   http://www.gnu.org/licenses/gpl.txt GPLv3+
  * @author    Cleiton Perin <cperin20 at gmail dot com>
- * @link      http://github.com/nfephp-org/sped-nfse-tinus for the canonical source repository
+ * @link      http://github.com/hdviegas/nfse-tinus for the canonical source repository
  */
 
 use NFePHP\Common\Certificate;
 use NFePHP\Common\DOMImproved as Dom;
-use NFePHP\NFSeTinus\Common\Soap\SoapCurl;
-use NFePHP\NFSeTinus\Common\Soap\SoapInterface;
-use NFePHP\NFSeTinus\RpsInterface;
+use HDViegas\NFSeTinus\Common\Soap\SoapCurl;
+use HDViegas\NFSeTinus\Common\Soap\SoapInterface;
 
 class Tools
 {
@@ -191,5 +190,4 @@ class Tools
         }
         return $env;
     }
-
 }

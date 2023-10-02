@@ -1,18 +1,18 @@
 <?php
 
-namespace NFePHP\NFSeTinus\Common;
+namespace HDViegas\NFSeTinus\Common;
 
 /**
  * Class for RPS XML convertion
  *
  * @category  NFePHP
- * @package   NFePHP\NFSeTinus
+ * @package   HDViegas\NFSeTinus
  * @copyright NFePHP Copyright (c) 2008-2018
  * @license   http://www.gnu.org/licenses/lgpl.txt LGPLv3+
  * @license   https://opensource.org/licenses/MIT MIT
  * @license   http://www.gnu.org/licenses/gpl.txt GPLv3+
- * @author    Roberto L. Machado <linux.rlm at gmail dot com>
- * @link      http://github.com/nfephp-org/sped-nfse-tinus for the canonical source repository
+ * @author    Hilthermann Viegas <hdviegas>
+ * @link      http://github.com/hdviegas/nfse-tinus for the canonical source repository
  */
 
 use DOMNode;
@@ -51,7 +51,7 @@ class Factory
         $this->dom->formatOutput = false;
         $this->rps = $this->dom->createElement('Rps');
     }
-    
+
     /**
      * Adicona dos dados de configuração
      * @param stdClass $config
@@ -151,7 +151,7 @@ class Factory
         );
         $parent->appendChild($node);
     }
-    
+
     /**
      * Adiciona o Prestador com base nos daddos do config
      * @param \DOMElement $parent

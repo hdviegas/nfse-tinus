@@ -1,22 +1,21 @@
 <?php
 
-namespace NFePHP\NFSeTinus;
+namespace HDViegas\NFSeTinus;
 
 /**
  * Class for RPS construction and validation of data
  *
  * @category  NFePHP
- * @package   NFePHP\NFSeTinus
- * @copyright NFePHP Copyright (c) 2020
+ * @package   HDViegas\NFSeTinus
  * @license   http://www.gnu.org/licenses/lgpl.txt LGPLv3+
  * @license   https://opensource.org/licenses/MIT MIT
  * @license   http://www.gnu.org/licenses/gpl.txt GPLv3+
- * @author    Roberto L. Machado <linux.rlm at gmail dot com>
- * @link      http://github.com/nfephp-org/sped-nfse-tinus for the canonical source repository
+ * @author    Hilthermann Viegas <hdviegas>
+ * @link      http://github.com/hdviegas/nfse-tinus for the canonical source repository
  */
 
 use JsonSchema\Validator as JsonValid;
-use NFePHP\NFSeTinus\Common\Factory;
+use HDViegas\NFSeTinus\Common\Factory;
 use stdClass;
 
 class Rps implements RpsInterface
@@ -33,7 +32,11 @@ class Rps implements RpsInterface
      * @var string
      */
     protected $jsonschema;
-    
+    /**
+     * @var stdClass
+     */
+    private $config;
+
     /**
      * Constructor
      * @param stdClass $rps
@@ -42,7 +45,7 @@ class Rps implements RpsInterface
     {
         $this->init($rps);
     }
-    
+
     /**
      * Add config
      * @param type $config
@@ -51,7 +54,7 @@ class Rps implements RpsInterface
     {
         $this->config = $config;
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -64,7 +67,7 @@ class Rps implements RpsInterface
         }
         return $fac->render();
     }
-    
+
     /**
      * Inicialize properties and valid input
      * @param stdClass $rps
@@ -78,7 +81,7 @@ class Rps implements RpsInterface
             $this->validInputData($this->std);
         }
     }
-    
+
     /**
      * Change properties names of stdClass to lower case
      * @param stdClass $data

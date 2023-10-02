@@ -1,18 +1,18 @@
 <?php
 
-namespace NFePHP\NFSeTinus\Common\Soap;
+namespace HDViegas\NFSeTinus\Common\Soap;
 
 /**
  * SoapClient based in cURL class
  *
  * @category  NFePHP
- * @package   NFePHP\NFSeTinus
+ * @package   HDViegas\NFSeTinus
  * @copyright NFePHP Copyright (c) 2016
  * @license   http://www.gnu.org/licenses/lgpl.txt LGPLv3+
  * @license   https://opensource.org/licenses/MIT MIT
  * @license   http://www.gnu.org/licenses/gpl.txt GPLv3+
- * @author    Roberto L. Machado <linux.rlm at gmail dot com>
- * @link      http://github.com/nfephp-org/sped-nfse-tinus for the canonical source repository
+ * @author    Hilthermann Viegas <hdviegas>
+ * @link      http://github.com/hdviegas/nfse-tinus for the canonical source repository
  */
 
 use NFePHP\Common\Certificate;
@@ -30,7 +30,7 @@ class SoapCurl extends SoapBase implements SoapInterface
     {
         parent::__construct($certificate, $logger);
     }
-    
+
     /**
      * Send soap message to url
      * @param string $operation
@@ -51,7 +51,7 @@ class SoapCurl extends SoapBase implements SoapInterface
         $response = '';
         $this->requestHead = implode("\n", $parameters);
         $this->requestBody = $envelope;
-        
+
         try {
             $this->saveTemporarilyKeyFiles();
             $oCurl = curl_init();
@@ -111,7 +111,7 @@ class SoapCurl extends SoapBase implements SoapInterface
         }
         return $this->responseBody;
     }
-    
+
     /**
      * Recover WSDL form given URL
      * @param string $url
@@ -147,7 +147,7 @@ class SoapCurl extends SoapBase implements SoapInterface
         }
         return $response;
     }
-    
+
     /**
      * Set proxy into cURL parameters
      * @param resource $oCurl
@@ -164,7 +164,7 @@ class SoapCurl extends SoapBase implements SoapInterface
             }
         }
     }
-    
+
     /**
      * Extract faultstring form response if exists
      * @param string $body

@@ -1,8 +1,8 @@
 <?php
 
-namespace NFePHP\NFSeTinus\Tests;
+namespace HDViegas\NFSeTinus\Tests;
 
-use NFePHP\NFSeTinus\Rps;
+use HDViegas\NFSeTinus\Rps;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use ReflectionMethod;
@@ -11,10 +11,10 @@ class RpsTest extends TestCase
 {
     public $std;
     public $fixturesPath;
-    
-    public function __construct()
+
+    protected function setUp(): void
     {
-        parent::__construct();
+
         $std = new \stdClass();
         $std->version = '1.00';
         $std->IdentificacaoRps = new \stdClass();
@@ -68,13 +68,13 @@ class RpsTest extends TestCase
         $this->std = $std;
         $this->fixturesPath = dirname(__FILE__) . '/fixtures/';
     }
-    
+
     public function testCanInstantiate()
     {
         $rps = new Rps();
-        $this->assertInstanceOf('NFePHP\NFSeTinus\Rps', $rps);
+        $this->assertInstanceOf('HDViegas\NFSeTinus\Rps', $rps);
     }
-    
+
     /**
      * @covers Rps::init
      * @covers Rps::propertiesToLower

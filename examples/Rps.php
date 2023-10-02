@@ -3,7 +3,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', 'On');
 require_once '../bootstrap.php';
 
-use NFePHP\NFSeTinus\Rps;
+use HDViegas\NFSeTinus\Rps;
 
 $config = [
     'cnpj'  => '99999999000191',
@@ -75,15 +75,15 @@ $std->Servico->Valores->OutrasRetencoes = 10.00;
 $std->Servico->Valores->Aliquota = 5;
 $std->Servico->Valores->DescontoIncondicionado = 10.00;
 $std->Servico->Valores->DescontoCondicionado = 10.00;
-
+/*
 $std->IntermediarioServico = new \stdClass();
-$std->IntermediarioServico->RazaoSocial = 'INSCRICAO DE TESTE SIATU - D AGUA -PAULINO S'; 
+$std->IntermediarioServico->RazaoSocial = 'INSCRICAO DE TESTE SIATU - D AGUA -PAULINO S';
 $std->IntermediarioServico->Cnpj = '99999999000191';
 $std->IntermediarioServico->InscricaoMunicipal = '8041700010';
 
 $std->ConstrucaoCivil = new \stdClass();
 $std->ConstrucaoCivil->CodigoObra = '1234';
-$std->ConstrucaoCivil->Art = '1234';
+$std->ConstrucaoCivil->Art = '1234';*/
 
 $rps = new Rps($std);
 $rps->config($config);

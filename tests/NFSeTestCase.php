@@ -1,6 +1,6 @@
 <?php
 
-namespace NFePHP\NFSeTinus\Tests;
+namespace HDViegas\NFSeTinus\Tests;
 
 use PHPUnit\Framework\TestCase;
 
@@ -13,7 +13,7 @@ class NFSeTestCase extends TestCase
 
     public function __construct()
     {
-        parent::__construct();
+        parent::__construct(self::class);
         $this->fixturesPath = dirname(__FILE__) . '/fixtures/';
         $config = [
             'cnpj' => '99999999000191',

@@ -1,19 +1,19 @@
 <?php
 
-namespace NFePHP\NFSeTinus\Common;
+namespace HDViegas\NFSeTinus\Common;
 
 /**
  * Class for identification of eletronic documents in xml
  * used for comunications an convertion to other formats
  *
  * @category  library
- * @package   NFePHP\NFSeTinus
+ * @package   HDViegas\NFSeTinus
  * @copyright NFePHP Copyright (c) 2017
  * @license   http://www.gnu.org/licenses/lgpl.txt LGPLv3+
  * @license   https://opensource.org/licenses/MIT MIT
  * @license   http://www.gnu.org/licenses/gpl.txt GPLv3+
- * @author    Roberto L. Machado <linux.rlm at gmail dot com>
- * @link      http://github.com/nfephp-org/sped-nfse-tinus for the canonical source repository
+ * @author    Hilthermann Viegas <hdviegas>
+ * @link      http://github.com/hdviegas/nfse-tinus for the canonical source repository
  */
 
 use InvalidArgumentException;
@@ -47,12 +47,12 @@ class Standardize
         'EnviarLoteRpsResponse',
         'RPS'
     ];
-    
+
     public function __construct($xml = null)
     {
         $this->toStd($xml);
     }
-    
+
     /**
      * Identify node and extract from XML for convertion type
      * @param string $xml
@@ -84,7 +84,7 @@ class Standardize
             "Este xml não pertence ao projeto NFSe Tinus."
         );
     }
-    
+
     /**
      * Returns extract node from XML
      * @return string
@@ -93,7 +93,7 @@ class Standardize
     {
         return $this->node;
     }
-    
+
     /**
      * Returns stdClass converted from xml
      * @param string $xml
@@ -112,7 +112,7 @@ class Standardize
         );
         return json_decode($this->json);
     }
-    
+
     /**
      * Retruns JSON string form XML
      * @param string $xml
@@ -125,7 +125,7 @@ class Standardize
         }
         return $this->json;
     }
-    
+
     /**
      * Returns array from XML
      * @param string $xml
