@@ -8,7 +8,7 @@ use HDViegas\NFSeTinus\Rps;
 $config = [
     'cnpj'  => '99999999000191',
     'im'    => '1733160024',
-    'cmun'  => '2403251',
+    'cmun'  => '2610707',
     'razao' => 'Empresa Test Ltda',
     'tpamb' => 2
 ];

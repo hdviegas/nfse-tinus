@@ -73,5 +73,5 @@ Este pacote está diponibilizado sob LGPLv3 ou MIT License (MIT). Leia  [Arquivo
 [ico-version]: https://img.shields.io/packagist/v/nfephp-org/sped-nfse-tinus.svg?style=flat-square
 [ico-license]: https://poser.pugx.org/nfephp-org/nfephp/license.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/nfephp-org/sped-nfse-tinus
+[link-packagist]: https://packagist.org/packages/hdviegas/nfse-tinus
 [link-author]: https://www.linkedin.com/in/hdviegas/
