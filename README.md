@@ -2,11 +2,6 @@
 
 Api para comunicação com webservices do [Provedor Tinus](https://www.tinus.com.br/)
 
-## Esta API esta sendo testada para Parnamirim - RN
-
-*Utilize o [forum NFePHP](https://groups.google.com/forum/#!forum/nfephp) iniciar discussões especificas sobre o desenvolvimento deste pacote.*
-
-
 [![Latest Stable Version][ico-stable]][link-packagist]
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![License][ico-license]][link-packagist]
@@ -17,21 +12,6 @@ Este pacote é aderente com os [PSR-1], [PSR-2] e [PSR-4]. Se você observar neg
 [PSR-1]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
 [PSR-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
 [PSR-4]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-4-autoloader.md
-
-## Municípios atendidos por esse provedor
-
-|n|Município|UF|IBGE|
-|:---:|:---|:---:|:---:|
-|1|Cabedelo|PB|2503209|
-|2|Cabo de Santo Agostinho|PE|2602902|
-|3|Camaragibe|PE|2603454|
-|4|Jaboatão dos Guararapes|PE|2607901|
-|5|Macaiba|PE|2407104|
-|6|Olinda|PE|2609600|
-|7|Mossoró|RN|2408003|
-|8|Parnamirim|RN|2403251|
-|9|São Goncalo|RN|2412005|
-|10|Garanhuns|PE|2606002|
 
 ## Dependências
 
