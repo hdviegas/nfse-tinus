@@ -24,18 +24,6 @@ class Tools extends BaseTools
 
     protected $xsdpath;
 
-    public function __construct($config, Certificate $cert)
-    {
-        parent::__construct($config, $cert);
-        //tinus não usa XSD
-        /**
-        $path = realpath(
-            __DIR__ . '/../storage/schemes'
-        );
-        $this->xsdpath = $path . '/nfsetempuri.xsd';
-         */
-    }
-
     /**
      * Solicita o cancelamento de NFSe (SINCRONO)
      * @param integer $numero

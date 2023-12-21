@@ -15,8 +15,8 @@ namespace HDViegas\NFSeTinus\Common\Soap;
  * @link      http://github.com/hdviegas/nfse-tinus for the canonical source repository
  */
 
-use League\Flysystem\Adapter\Local;
 use League\Flysystem\Filesystem;
+use League\Flysystem\Local\LocalFilesystemAdapter;
 use NFePHP\Common\Certificate;
 use NFePHP\Common\Exception\RuntimeException;
 use NFePHP\Common\Strings;
@@ -97,7 +97,7 @@ abstract class SoapBase implements SoapInterface
      */
     protected $disableCertValidation = false;
     /**
-     * @var \League\Flysystem\Adapter\Local
+     * @var \League\Flysystem\Local\LocalFilesystemAdapter
      */
     protected $adapter;
     /**
@@ -155,8 +155,8 @@ abstract class SoapBase implements SoapInterface
         LoggerInterface $logger = null
     ) {
         $this->logger = $logger;
-        $this->certificate = $this->checkCertValidity($certificate);
         $this->setTemporaryFolder(sys_get_temp_dir() . '/sped/');
+        $this->certificate = $this->checkCertValidity($certificate);
     }
 
     /**
@@ -170,12 +170,15 @@ abstract class SoapBase implements SoapInterface
         if ($this->disableCertValidation) {
             return $certificate;
         }
-        if (!empty($certificate)) {
-            if ($certificate->isExpired()) {
-                throw new RuntimeException(
-                    'The validity of the certificate has expired.'
-                );
-            }
+        if (empty($certificate)) {
+            throw new RuntimeException(
+                'Invalid certificate file. Certificate is Empty.'
+            );
+        }
+        if ($certificate->isExpired()) {
+            throw new RuntimeException(
+                'The validity of the certificate has expired.'
+            );
         }
         return $certificate;
     }
@@ -248,7 +251,7 @@ abstract class SoapBase implements SoapInterface
      */
     protected function setLocalFolder($folder = '')
     {
-        $this->adapter = new Local($folder);
+        $this->adapter = new LocalFilesystemAdapter($folder);
         $this->filesystem = new Filesystem($this->adapter);
     }
 
@@ -381,11 +384,12 @@ abstract class SoapBase implements SoapInterface
                 'Certificate not found.'
             );
         }
+
         $this->certsdir = $this->certificate->getCnpj() . '/certs/';
         $this->prifile = $this->certsdir . Strings::randomString(10) . '.pem';
         $this->pubfile = $this->certsdir . Strings::randomString(10) . '.pem';
         $this->certfile = $this->certsdir . Strings::randomString(10) . '.pem';
-        $ret = true;
+
         $private = $this->certificate->privateKey;
         if ($this->encriptPrivateKey) {
             //cria uma senha temporária ALEATÓRIA para salvar a chave primaria
@@ -399,21 +403,22 @@ abstract class SoapBase implements SoapInterface
                 $this->temppass
             );
         }
-        $ret &= $this->filesystem->put(
-            $this->prifile,
-            $private
-        );
-        $ret &= $this->filesystem->put(
-            $this->pubfile,
-            $this->certificate->publicKey
-        );
-        $ret &= $this->filesystem->put(
-            $this->certfile,
-            $private . "{$this->certificate}"
-        );
-        if (!$ret) {
+        try {
+            $this->filesystem->write(
+                $this->prifile,
+                $private
+            );
+            $this->filesystem->write(
+                $this->pubfile,
+                $this->certificate->publicKey
+            );
+            $this->filesystem->write(
+                $this->certfile,
+                $private . "{$this->certificate}"
+            );
+        } catch (\Exception $e) {
             throw new RuntimeException(
-                'Unable to save temporary key files in folder.'
+                'Unable to save temporary key files in folder. ' . $e->getMessage()
             );
         }
     }
@@ -447,7 +452,7 @@ abstract class SoapBase implements SoapInterface
                     $this->filesystem->delete($item['path']);
                     continue;
                 }
-                $timestamp = $this->filesystem->getTimestamp($item['path']);
+                $timestamp = $this->filesystem->lastModified($item['path']);
                 if ($timestamp < $tsLimit) {
                     //remove arquivos criados a mais de 45 min
                     $this->filesystem->delete($item['path']);
@@ -476,11 +481,11 @@ abstract class SoapBase implements SoapInterface
         $now = \DateTime::createFromFormat('U.u', number_format(microtime(true), 6, '.', ''));
         $time = substr($now->format("ymdHisu"), 0, 16);
         try {
-            $this->filesystem->put(
+            $this->filesystem->write(
                 $this->debugdir . $time . "_" . $operation . "_sol.txt",
                 $request
             );
-            $this->filesystem->put(
+            $this->filesystem->write(
                 $this->debugdir . $time . "_" . $operation . "_res.txt",
                 $response
             );

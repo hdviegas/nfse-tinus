@@ -101,12 +101,13 @@ class SoapCurl extends SoapBase implements SoapInterface
             throw SoapException::unableToLoadCurl($e->getMessage());
         }
         if ($this->soaperror != '') {
-            throw SoapException::soapFault($this->soaperror . " [$url]");
+            throw SoapException::soapFault($this->soaperror . " [$url]", $httpcode);
         }
         if ($httpcode != 200) {
             throw SoapException::soapFault(
                 " [$url] HTTP Error code: $httpcode - "
-                . $this->getFaultString($this->responseBody)
+                . $this->getFaultString($this->responseBody),
+                $httpcode
             );
         }
         return $this->responseBody;
@@ -150,7 +151,7 @@ class SoapCurl extends SoapBase implements SoapInterface
 
     /**
      * Set proxy into cURL parameters
-     * @param resource $oCurl
+     * @param \CurlHandle $oCurl
      */
     private function setCurlProxy(&$oCurl)
     {

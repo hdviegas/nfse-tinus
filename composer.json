@@ -21,7 +21,8 @@
         "ext-openssl": "*",
         "ext-json": "*",
         "ext-simplexml": "*",
-        "ext-libxml": "*"
+        "ext-libxml": "*",
+        "league/flysystem": "^3.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^3.4",
