@@ -81,7 +81,7 @@ class Tools
     {
         $this->prestador = "<Prestador>"
             . "<Cnpj>" . $this->config->cnpj . "</Cnpj>"
-            . "<InscricaoMunicipal>" . $this->config->im . "</InscricaoMunicipal>"
+            . "<InscricaoMunicipal>" . str_pad($this->config->im, 7, '0', STR_PAD_LEFT) . "</InscricaoMunicipal>"
             . "</Prestador>";
     }
 

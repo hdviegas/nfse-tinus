@@ -151,19 +151,21 @@ class Tools extends BaseTools
             $rps->config($this->config);
             $content .= $rps->render();
         }
-        $contentmsg = "<EnviarLoteRpsEnvio>"
-            . "<LoteRps Id=\"$lote\">"
+        $contentmsg = "<Arg xmlns=\"http://www2.tinus.com.br\">"
+            . "<LoteRps id=\"$lote\">"
             . "<NumeroLote>$lote</NumeroLote>"
             . "<Cnpj>" . $this->config->cnpj . "</Cnpj>"
-            . "<InscricaoMunicipal>" . $this->config->im . "</InscricaoMunicipal>"
+            . "<InscricaoMunicipal>" . str_pad($this->config->im, 7, '0', STR_PAD_LEFT) . "</InscricaoMunicipal>"
             . "<QuantidadeRps>$no_of_rps_in_lot</QuantidadeRps>"
             . "<ListaRps>"
             . $content
             . "</ListaRps>"
             . "</LoteRps>"
-            . "</EnviarLoteRpsEnvio>";
+            . "</Arg>";
+
         $content = $this->sign($contentmsg, 'LoteRps', 'Id');
         //Tinus não usa XSD Validator::isValid($content, $this->xsdpath);
+
         return $this->send($content, $operation);
     }
 }

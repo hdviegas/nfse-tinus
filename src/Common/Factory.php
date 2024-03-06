@@ -15,6 +15,7 @@ namespace HDViegas\NFSeTinus\Common;
  * @link      http://github.com/hdviegas/nfse-tinus for the canonical source repository
  */
 
+use DOMElement;
 use DOMNode;
 use NFePHP\Common\DOMImproved as Dom;
 use stdClass;
@@ -69,7 +70,7 @@ class Factory
     public function render()
     {
         $infRps = $this->dom->createElement('InfRps');
-        $att = $this->dom->createAttribute('Id');
+        $att = $this->dom->createAttribute('id');
         $att->value = $this->std->identificacaorps->numero;
         $infRps->appendChild($att);
 
@@ -178,7 +179,7 @@ class Factory
         $this->dom->addChild(
             $node,
             "InscricaoMunicipal",
-            $this->config->im,
+            str_pad($this->config->im, 7, '0', STR_PAD_LEFT),
             true
         );
         $parent->appendChild($node);
@@ -284,18 +285,25 @@ class Factory
                 : null,
             false
         );
-        $this->dom->addChild(
-            $valnode,
-            "Aliquota",
-            isset($val->aliquota) ? $val->aliquota : null,
-            false
-        );
-        $this->dom->addChild(
-            $valnode,
-            "ValorLiquidoNfse",
-            isset($val->valorliquidonfse) ? $val->valorliquidonfse : null,
-            true
-        );
+
+        if(isset($val->aliquota)) {
+            $this->dom->addChild(
+                $valnode,
+                "Aliquota",
+                number_format($val->aliquota, 4),
+                false
+            );
+        }
+
+        if(isset($val->valorliquidonfse)) {
+            $this->dom->addChild(
+                $valnode,
+                "ValorLiquidoNfse",
+                $val->valorliquidonfse,
+                true
+            );
+        }
+
         $this->dom->addChild(
             $valnode,
             "DescontoIncondicionado",
@@ -320,24 +328,28 @@ class Factory
             $serv->itemlistaservico,
             true
         );
+
         $this->dom->addChild(
             $node,
             "CodigoCnae",
             isset($serv->codigocnae) ? $serv->codigocnae : null,
             false
         );
+
         $this->dom->addChild(
             $node,
             "CodigoTributacaoMunicipio",
             $serv->codigotributacaomunicipio,
             true
         );
+
         $this->dom->addChild(
             $node,
             "Discriminacao",
             $serv->discriminacao,
             true
         );
+
         if (isset($val->codigomunicipio)) {
             $this->dom->addChild(
                 $node,
@@ -360,11 +372,11 @@ class Factory
             return;
         }
         $tom = $this->std->tomador;
-        $end = $this->std->tomador->endereco;
 
         $node = $this->dom->createElement('Tomador');
         $ide = $this->dom->createElement('IdentificacaoTomador');
         $cpfcnpj = $this->dom->createElement('CpfCnpj');
+
         if (isset($tom->cnpj)) {
             $this->dom->addChild(
                 $cpfcnpj,
@@ -380,13 +392,18 @@ class Factory
                 true
             );
         }
+
         $ide->appendChild($cpfcnpj);
-        $this->dom->addChild(
-            $ide,
-            "InscricaoMunicipal",
-            isset($tom->inscricaomunicipal) ? $tom->inscricaomunicipal : null,
-            false
-        );
+
+        if(isset($tom->inscricaomunicipal)) {
+            $this->dom->addChild(
+                $ide,
+                "InscricaoMunicipal",
+                str_pad($tom->inscricaomunicipal, 7, '0', STR_PAD_LEFT),
+                false
+            );
+        }
+
         $node->appendChild($ide);
         $this->dom->addChild(
             $node,
@@ -394,51 +411,70 @@ class Factory
             $tom->razaosocial,
             true
         );
+
+        if ( $address = $this->makeAddress() ) {
+            $node->appendChild($address);
+        }
+
+        $parent->appendChild($node);
+    }
+
+    protected function makeAddress(): ?DOMElement
+    {
+        $end = $this->std->tomador->endereco;
+
         $endereco = $this->dom->createElement('Endereco');
+
         $this->dom->addChild(
             $endereco,
             "Endereco",
             $end->endereco,
-            true
+            false
         );
+
         $this->dom->addChild(
             $endereco,
             "Numero",
             $end->numero,
-            true
+            false
         );
+
         $this->dom->addChild(
             $endereco,
             "Complemento",
-            isset($end->complemento) ? $end->complemento : null,
+            $end->complemento,
             false
         );
+
         $this->dom->addChild(
             $endereco,
             "Bairro",
             $end->bairro,
-            true
+            false
         );
+
         $this->dom->addChild(
             $endereco,
             "CodigoMunicipio",
             $end->codigomunicipio,
-            true
+            false
         );
+
         $this->dom->addChild(
             $endereco,
             "Uf",
             $end->uf,
-            true
+            false
         );
+
         $this->dom->addChild(
             $endereco,
             "Cep",
             $end->cep,
-            true
+            false
         );
-        $node->appendChild($endereco);
-        $parent->appendChild($node);
+
+        return $endereco;
     }
 
     /**
@@ -478,7 +514,7 @@ class Factory
         $this->dom->addChild(
             $node,
             "InscricaoMunicipal",
-            $int->inscricaomunicipal,
+            str_pad($int->inscricaomunicipal, 7, '0', STR_PAD_LEFT),
             false
         );
         $parent->appendChild($node);
