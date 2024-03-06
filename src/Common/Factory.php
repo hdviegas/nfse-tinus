@@ -421,56 +421,56 @@ class Factory
 
     protected function makeAddress(): ?DOMElement
     {
-        $end = $this->std->tomador->endereco;
+        $end = $this->std->tomador->endereco ?? new stdClass;
 
         $endereco = $this->dom->createElement('Endereco');
 
         $this->dom->addChild(
             $endereco,
             "Endereco",
-            $end->endereco,
+            $end->endereco ?? null,
             false
         );
 
         $this->dom->addChild(
             $endereco,
             "Numero",
-            $end->numero,
+            $end->numero ?? null,
             false
         );
 
         $this->dom->addChild(
             $endereco,
             "Complemento",
-            $end->complemento,
+            $end->complemento ?? null,
             false
         );
 
         $this->dom->addChild(
             $endereco,
             "Bairro",
-            $end->bairro,
+            $end->bairro ?? null,
             false
         );
 
         $this->dom->addChild(
             $endereco,
             "CodigoMunicipio",
-            $end->codigomunicipio,
+            $end->codigomunicipio ?? null,
             false
         );
 
         $this->dom->addChild(
             $endereco,
             "Uf",
-            $end->uf,
+            $end->uf ?? null,
             false
         );
 
         $this->dom->addChild(
             $endereco,
             "Cep",
-            $end->cep,
+            $end->cep ?? null,
             false
         );
 
