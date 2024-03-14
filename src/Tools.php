@@ -64,10 +64,10 @@ class Tools extends BaseTools
     public function consultarLoteRps($protocolo)
     {
         $operation = 'ConsultarLoteRps';
-        $content = "<ConsultarLoteRpsEnvio>"
+        $content = "<Arg>"
             . $this->prestador
             . "<Protocolo>$protocolo</Protocolo>"
-            . "</ConsultarLoteRpsEnvio>";
+            . "</Arg>";
         //Tinus não usa XSD Validator::isValid($content, $this->xsdpath);
         return $this->send($content, $operation);
     }
@@ -84,7 +84,7 @@ class Tools extends BaseTools
     public function consultarNfse($dini, $dfim, $tomadorCnpj = null, $tomadorCpf = null, $tomadorIM = null)
     {
         $operation = 'ConsultarNfse';
-        $content = "<ConsultarNfseEnvio>"
+        $content = "<Arg>"
             . $this->prestador
             . "<PeriodoEmissao>"
             . "<DataInicial>$dini</DataInicial>"
@@ -105,7 +105,7 @@ class Tools extends BaseTools
             }
             $content .= "</Tomador>";
         }
-        $content .= "</ConsultarNfseEnvio>";
+        $content .= "</Arg>";
         //Tinus não usa XSD Validator::isValid($content, $this->xsdpath);
         return $this->send($content, $operation);
     }
@@ -120,14 +120,14 @@ class Tools extends BaseTools
     public function consultarNfsePorRps($numero, $serie, $tipo)
     {
         $operation = "ConsultarNfsePorRps";
-        $content = "<ConsultarNfseRpsEnvio>"
+        $content = "<Arg>"
             . "<IdentificacaoRps>"
             . "<Numero>$numero</Numero>"
             . "<Serie>$serie</Serie>"
             . "<Tipo>$tipo</Tipo>"
             . "</IdentificacaoRps>"
             . $this->prestador
-            . "</ConsultarNfseRpsEnvio>";
+            . "</Arg>";
         //Tinus não usa XSD Validator::isValid($content, $this->xsdpath);
         return $this->send($content, $operation);
     }
